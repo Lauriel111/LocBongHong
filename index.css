@@ -1,0 +1,92 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000; /* Đen tuyền */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            position: relative;
+            background: rgba(0, 0, 0, 0.3); /* Trong suốt nhẹ */
+            backdrop-filter: blur(10px); /* Blur background */
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); /* Dạ quang nhẹ (glow cyan) */
+            transition: all 0.5s ease; /* Chuyển từ từ */
+            cursor: pointer;
+        }
+
+        .box:hover {
+            background: rgba(0, 123, 255, 0.5); /* Chuyển sang xanh dần (xanh dương nhạt) */
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); /* Tăng glow khi hover */
+        }
+
+        .btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #ffffff; /* Chữ trắng ban đầu */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .btn:hover .text {
+            color: #00ffff; /* Xanh cyan đẹp khi hover */
+        }
+
+        .arrow {
+            font-size: 30px;
+            color: #ffffff;
+            animation: arrowMove 1.5s infinite ease-in-out; /* Animation di chuyển */
+        }
+
+        .arrow.left {
+            animation-direction: reverse; /* Mũi tên trái di chuyển ngược */
+        }
+
+        @keyframes arrowMove {
+            0%, 100% {
+                transform: translateX(0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateX(10px); /* Di chuyển nhẹ vào giữa */
+                opacity: 1;
+            }
+        }
+
+        /* Responsive cho mobile */
+        @media (max-width: 768px) {
+            .box {
+                padding: 20px;
+            }
+            .btn {
+                font-size: 18px;
+            }
+            .arrow {
+                font-size: 24px;
+            }
+        }

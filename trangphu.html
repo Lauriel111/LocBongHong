@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11B11 8386</title>
+    <link rel="stylesheet" href="trangphu.css">
+   
+</head>
+<body>
+    <!-- Loading screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+        <div class="loading-text">Đang tải \ bống hồng ai kia...</div>
+    </div>
+
+    <!-- Background thiên hà -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Box chứa trái tim -->
+    <div class="hearts-box" id="heartsBox"></div>
+
+    <!-- Counter -->
+    <div class="counter" id="counter">❤️ 0 / 10</div>
+
+    <!-- Title cuối -->
+    <div class="final-title" id="finalTitle">LỚP 11B11 <span class="rainbow-heart">❤️</span> MÃI ĐỈNH</div>
+
+    <script>
+        // Tạo các chấm sao cho thiên hà
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 200; i++) { // 200 chấm nhỏ
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = Math.random() * 2 + 1 + 'px'; // Rất nhỏ
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 2 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // Danh sách 48 lời chúc (gốc)
+        const messages = [
+            "1. Chúc thầy Lộc luôn tràn đầy nhiệt huyết và thành công trên con đường gieo kiến thức.",
+            "2. Chúc thầy Lộc luôn mạnh khỏe, hạnh phúc và yêu đời như những con sông dài miên man.",
+            "3. Chúc thầy Lộc luôn giữ mãi ngọn lửa đam mê với những trang bản đồ và câu chuyện địa lý.",
+            "4. Chúc thầy Lộc luôn bình an, vui vẻ và gặt hái nhiều thành tựu trong sự nghiệp trồng người.",
+            "5. Chúc thầy Lộc luôn hạnh phúc với những khám phá mới trong từng tấm bản đồ.",
+            "6. Chúc thầy Lộc có một ngày Nhà giáo Việt Nam tràn đầy yêu thương và niềm vui.",
+            "7. Chúc thầy Lộc luôn hăng say giảng dạy và lan tỏa tình yêu địa lý đến bao thế hệ học trò.",
+            "8. Chúc thầy Lộc luôn mạnh khỏe để tiếp tục hành trình khám phá thế giới cùng học sinh.",
+            "9. Chúc thầy Lộc luôn được học trò kính trọng và đồng nghiệp yêu mến.",
+            "10. Chúc thầy Lộc có thật nhiều niềm vui và khoảnh khắc đáng nhớ trong nghề giáo.",
+        ];
+
+        // Loại bỏ số thứ tự ở đầu mỗi lời chúc
+        const cleanedMessages = messages.map(msg => msg.replace(/^\d+\.\s*/, ''));
+
+        const loadingScreen = document.getElementById('loadingScreen');
+        const heartsBox = document.getElementById('heartsBox');
+        const counter = document.getElementById('counter');
+        const finalTitle = document.getElementById('finalTitle');
+        let currentIndex = 0;
+        const intervalTime = 2500; // 3.75 giây mỗi trái tim
+
+        // Hiển thị loading trong 3 giây, rồi bắt đầu hiệu ứng
+        setTimeout(() => {
+            loadingScreen.classList.add('hide');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none'; // Ẩn hoàn toàn sau fade-out
+                createHeart(0); // Bắt đầu hiệu ứng trái tim
+            }, 1000); // Chờ fade-out xong
+        }, 3000); // 3 giây loading
+
+        function createHeart(index) {
+            if (index >= cleanedMessages.length) {
+                // Hiển thị title cuối
+                setTimeout(() => {
+                    finalTitle.classList.add('show');
+                }, 2000);
+                return;
+            }
+
+            // Cập nhật counter
+            counter.textContent = `❤️ ${index + 1} / 10`;
+
+            // Tạo trái tim bên trong box
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 80 + 10 + '%'; // Random trong box (10% đến 90%)
+            heart.style.top = Math.random() * 40 + 10 + '%'; // Random trên cao (10% đến 50% của box)
+            heartsBox.appendChild(heart);
+
+            // Tạo lời chúc (ẩn ban đầu, căn giữa trái tim)
+            const message = document.createElement('div');
+            message.className = 'message';
+            message.textContent = cleanedMessages[index]; // Sử dụng cleanedMessages
+            message.style.left = heart.style.left; // Cùng left với trái tim
+            message.style.top = `calc(${heart.style.top} + 6rem)`; // Dưới trái tim
+            heartsBox.appendChild(message);
+
+            // Hiển thị trái tim (từ nhỏ to dần)
+            setTimeout(() => {
+                heart.classList.add('show');
+            }, 100);
+
+            // Sau khi to, trigger nổ và hiển thị lời chúc
+            setTimeout(() => {
+                // Pháo bông
+                for (let i = 0; i < 8; i++) {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.left = heart.offsetLeft + heart.offsetWidth / 2 + 'px';
+                    firework.style.top = heart.offsetTop + heart.offsetHeight / 2 + 'px';
+                    firework.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+                    firework.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+                    heartsBox.appendChild(firework);
+                    setTimeout(() => firework.remove(), 1500);
+                }
+
+                // Hiển thị lời chúc
+                message.classList.add('show');
+            }, 1000); // Sau 1s to dần
+
+            // Sau thời gian hiển thị, fade-out cả trái tim và lời chúc
+            setTimeout(() => {
+                heart.style.opacity = '0';
+                message.style.opacity = '0';
+                setTimeout(() => {
+                    heart.remove();
+                    message.remove();
+                    createHeart(index + 1); // Chuyển tiếp
+                }, 500); // Thời gian fade-out
+            }, intervalTime - 500); // Tổng thời gian trừ fade-out
+        }
+    </script>
+</body>
+</html

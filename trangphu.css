@@ -1,0 +1,235 @@
+
+        /* Reset và cơ bản */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000; /* Nền đen */
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Loading screen */
+        .loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000; /* Nền đen */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        .loading-screen.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ffffff;
+            border-top: 5px solid #ff69b4; /* Màu hồng cho spinner */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+
+        /* Background thiên hà: Các chấm nhỏ trắng */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Box chứa trái tim: To to, centered */
+        .hearts-box {
+            position: absolute;
+            width: 80%; /* To ngang */
+            height: 60%; /* To dọc, ở trên cao */
+            top: 10%; /* Đẩy lên trên */
+            left: 10%;
+            z-index: 2;
+            border: 1px solid transparent; /* Invisible border để định hình */
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 0; /* Bắt đầu nhỏ nhất */
+            color: #ff69b4; /* Hồng nhạt cho trái tim */
+            opacity: 0;
+            transition: all 1s ease-in-out; /* Từ từ mở rộng */
+            z-index: 3;
+        }
+
+        .heart.show {
+            font-size: 5rem; /* To nhất */
+            opacity: 1;
+        }
+
+        /* Lời chúc hiển thị khi nổ: Căn giữa theo trái tim */
+        .message {
+            position: absolute;
+            font-size: 1.2rem; /* Chữ nhỏ hơn để vừa */
+            color: #ffffff; /* Chữ trắng */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            text-align: center;
+            max-width: 300px; /* Giới hạn chiều rộng */
+            line-height: 1.4;
+            z-index: 4;
+            transform: translate(-50%, 0); /* Căn giữa theo trái tim */
+        }
+
+        .message.show {
+            opacity: 1;
+        }
+
+        /* Hiệu ứng pháo bông: Các hạt nhỏ bay ra */
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #ffffff; /* Hạt trắng */
+            border-radius: 50%;
+            opacity: 0;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                opacity: 1;
+                transform: scale(0) translate(0, 0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1) translate(var(--tx), var(--ty));
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) translate(var(--tx), var(--ty));
+            }
+        }
+
+        /* Counter ở góc trên phải */
+        .counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #ffffff;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.5); /* Nền mờ để nổi bật */
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* Title cuối */
+        .final-title {
+            position: absolute;
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ffffff; /* Chữ trắng */
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            z-index: 6;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .final-title.show {
+            opacity: 1;
+        }
+
+        /* Trái tim đa màu trong title */
+        .rainbow-heart {
+            background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0080ff, #8000ff, #ff0080);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s infinite linear;
+        }
+
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Responsive cho mobile */
+        @media (max-width: 768px) {
+            .hearts-box {
+                width: 90%;
+                height: 50%;
+                top: 5%;
+                left: 5%;
+            }
+            .heart.show {
+                font-size: 3rem; /* Nhỏ hơn trên mobile */
+            }
+            .message {
+                font-size: 1rem;
+                max-width: 250px;
+            }
+            .final-title {
+                font-size: 2.5rem;
+            }
+            .counter {
+                font-size: 1.2rem;
+                top: 10px;
+                right: 10px;
+            }
+            .firework {
+                width: 3px;
+                height: 3px;
+            }
+            .spinner {
+                width: 40px;
+                height: 40px;
+            }
+            .loading-text {
+                font-size: 1.2rem;
+            }
+        }

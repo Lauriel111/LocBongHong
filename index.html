@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11B11 8386</title>
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <a href="trangphu.html">
+            <div class="box" id="hoverBox">
+                <button class="btn">
+                    <span class="arrow left">&larr;</span>
+                    <span class="text">nhấp vào</span>
+                    <span class="arrow right">&rarr;</span>
+                </button>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        // JavaScript để xử lý hover trên mobile (vì :hover không hoạt động tốt trên touch)
+        const box = document.getElementById('hoverBox');
+        box.addEventListener('touchstart', () => {
+            box.classList.add('hover');
+        });
+        box.addEventListener('touchend', () => {
+            box.classList.remove('hover');
+        });
+    </script>
+</body>
+
+</html>
